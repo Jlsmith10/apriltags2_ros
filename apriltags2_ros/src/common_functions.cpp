@@ -296,7 +296,19 @@ AprilTagDetectionArray TagDetector::detectTags (
     tag_detection.pose = tag_pose;
     tag_detection.id.push_back(detection->id);
     tag_detection.size.push_back(tag_size);
+    
+    for(uint pt_i = 0; pt_i < 4; ++pt_i)
+    {
+        geometry_msgs::Point32 img_pt;
+        img_pt.x = detection->p[pt_i][0];
+        img_pt.y = detection->p[pt_i][1];
+        img_pt.z = 1;
+        tag_detection.corners2d[pt_i] = img_pt;
+    }
+
+
     tag_detection_array.detections.push_back(tag_detection);
+
     detection_names.push_back(standaloneDescription->frame_name());
   }
 

@@ -38,11 +38,11 @@ ContinuousDetector::ContinuousDetector (ros::NodeHandle& nh,
                                         ros::NodeHandle& pnh) :
     tag_detector_(pnh),
     draw_tag_detections_image_(
-        getAprilTagOption<bool>(pnh, "publish_tag_detections_image", false)),
+        getAprilTagOption<bool>(pnh, "publish_tag_detections_image", true)),
     it_(nh)
 {
   camera_image_subscriber_ =
-      it_.subscribeCamera("image_rect", 1,
+      it_.subscribeCamera("/head_camera/rgb/image_rect", 1,
                           &ContinuousDetector::imageCallback, this);
   tag_detections_publisher_ =
       nh.advertise<AprilTagDetectionArray>("tag_detections", 1);
